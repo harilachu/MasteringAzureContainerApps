@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using System.Text.Json.Serialization;
 
-namespace ERP.Common.DTO
+namespace ERP.Common.Domain
 {
-    public class EmployeeDto
+    public class Employee
     {
+        public string id { get; set; }
+
         public string EmpId { get; set; }
 
         public string EmpName { get; set; }
@@ -18,6 +19,5 @@ namespace ERP.Common.DTO
         public int AnnualIncome { get; set; }
 
         public int JoiningYear { get; set; }
-
     }
 }

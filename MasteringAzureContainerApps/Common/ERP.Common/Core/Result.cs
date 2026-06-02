@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ERP.Common.Core
 {
-    public record Error(string status, string message);
+    public record Error(string Status, string Message);
 
     public class Result
     {
@@ -19,18 +19,6 @@ namespace ERP.Common.Core
 
         public static Result Success() => new Result(true, null);
         public static Result Failure(Error error) => new Result(false, error);
-
-        public static void Match(Result result, Action onSuccess, Action<Error> onFailure)
-        {
-            if (result.IsSuccess)
-            {
-                onSuccess();
-            }
-            else if (result.Error != null)
-            {
-                onFailure(result.Error);
-            }
-        }
     }
 
     public class Result<TValue>
@@ -49,21 +37,6 @@ namespace ERP.Common.Core
         public static Result<TValue> Success(TValue value) => new Result<TValue>(true, value, null);
         public static Result<TValue> Failure(Error error) => new Result<TValue>(false, default, error);
 
-        public static TResult Match<TResult>(Result<TValue> result, Func<TValue, TResult> onSuccess, Func<Error, TResult> onFailure)
-        {
-            if (result.IsSuccess)
-            {
-                return onSuccess(result.Value);
-            }
-            else if (result.Error != null)
-            {
-                return onFailure(result.Error);
-            }
-            else
-            {
-                throw new InvalidOperationException("Invalid Result state: Failure result must contain an error.");
-            }
-        }
     }
 
     public static class ResultExtensions
@@ -80,7 +53,10 @@ namespace ERP.Common.Core
             }
         }
 
-        public static TResult Match<TValue, TResult>(this Result<TValue> result, Func<TValue, TResult> onSuccess, Func<Error, TResult> onFailure)
+        public static TResult Match<TValue, TResult>(
+            this Result<TValue> result,
+            Func<TValue, TResult> onSuccess,
+            Func<Error, TResult> onFailure)
         {
             if (result.IsSuccess)
             {

@@ -1,0 +1,53 @@
+﻿using AutoMapper;
+using ERP.Common.Core;
+using ERP.Common.Domain;
+using ERP.Employees.Application.Interfaces;
+using ERP.Infrastructure.Core;
+using ERP.Infrastructure.Core.Interfaces;
+using Microsoft.Azure.Cosmos;
+using Microsoft.Extensions.Logging;
+
+namespace ERP.Employees.Infrastructure.Repositories
+{
+    public class EmployeeRepository : IEmployeeRepository
+    {
+        private readonly IBaseCosmosRepository<Employee> cosmosRepository;
+        private readonly ILogger<EmployeeRepository> logger;
+        private readonly IMapper mapper;
+
+        public EmployeeRepository(IBaseCosmosRepository<Employee> cosmosRepository, ILogger<EmployeeRepository> logger, IMapper mapper)
+        {
+            this.cosmosRepository = cosmosRepository;
+            this.logger = logger;
+            this.mapper = mapper;
+        }
+        public async Task<Result> AddEmployeeAsync(Employee employee, CancellationToken cancellationToken)
+        {
+            return await cosmosRepository.AddItemAsync(employee, employee.Department, cancellationToken);
+        }
+
+        public async Task<Result> DeleteEmployeeAsync(string id, string department, CancellationToken cancellationToken)
+        {
+            return await cosmosRepository.DeleteItemAsync(id, department, cancellationToken);
+        }
+
+        public async Task<Result<Employee>> GetEmployeeAsync(string id, string department, CancellationToken cancellationToken)
+        {
+            return await cosmosRepository.GetItemAsync<Employee>(id, department, cancellationToken);
+        }
+
+        public async Task<Result<List<Employee>>> GetEmployeesByQueryAsync(string empId, string department, CancellationToken cancellationToken)
+        {
+            var queryDefinition = new QueryDefinition(InfraConstants.GET_EMPLOYEE_BY_EMPID_QUERY)
+                .WithParameter("@partitionKey", department)
+                .WithParameter("@empId", empId);
+
+            return await cosmosRepository.GetItemsByQueryAsync<Employee>(queryDefinition, cancellationToken);
+        }
+
+        public async Task<Result> UpdateEmployeeAsync(string id, Employee employee, CancellationToken cancellationToken)
+        {
+            return await cosmosRepository.UpdateItemAsync(id, employee, cancellationToken);
+        }
+    }
+}

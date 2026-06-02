@@ -1,29 +1,43 @@
+using ERP.Common.Core;
+using ERP.Employees.API;
 using ERP.Employees.API.Generated;
+using ERP.Employees.Application;
+using ERP.Employees.Infrastructure.ServiceDependencies;
 using Synaptrix;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 // Single call registers all handlers + wires GeneratedMediator as IMediator/ISender.
-builder.Services.AddSynaptrixHandlers();
+builder.Services.AddSynaptrixHandlers()
+    .AddSynaptrixCoreServices();
 
-// If you also need a notification publisher for the reflection-based Mediator (non-generated path):
-builder.Services.AddSynaptrixCoreServices();
+builder.Services.Configure<AppConfig>(builder.Configuration.GetSection("AppConfig"));
+var appConfig = builder.Configuration.GetSection("AppConfig").Get<AppConfig>();
+
+builder.Services.AddApplicationServices()
+    .AddInfrastructureServices(appConfig);
 
 builder.Services.AddControllers();
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
+builder.Services.AddHealthChecks()
+.AddCheck("self", () => Microsoft.Extensions.Diagnostics.HealthChecks.HealthCheckResult.Healthy("Ok"));
+
 builder.Services.AddOpenApi();
+builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
+
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
+    app.UseDeveloperExceptionPage();
     app.MapOpenApi();
 }
 
 app.UseAuthorization();
 
+app.UseExceptionHandler(options => { });
 app.MapControllers();
-
+app.MapHealthChecks("/health");
 app.Run();
