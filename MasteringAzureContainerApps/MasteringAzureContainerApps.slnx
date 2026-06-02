@@ -1,7 +1,19 @@
 <Solution>
-  <Folder Name="/Common/" />
+  <Folder Name="/Common/">
+    <Project Path="Common/ERP.Common/ERP.Common.csproj" />
+  </Folder>
   <Folder Name="/Microservices/" />
-  <Folder Name="/Microservices/Employees/" />
-  <Folder Name="/Microservices/PerformanceReviews/" />
-  <Folder Name="/Microservices/YARP/" />
+  <Folder Name="/Microservices/Employees/">
+    <Project Path="Microservices/Employees/ERP.Employees.API/ERP.Employees.API.csproj" />
+    <Project Path="Microservices/Employees/ERP.Employees.Application/ERP.Employees.Application.csproj" />
+    <Project Path="Microservices/Employees/ERP.Employees.Infrastructure/ERP.Employees.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/Microservices/PerformanceReviews/">
+    <Project Path="Microservices/PerformanceReviews/ERP.PerfReview.API/ERP.PerfReview.API.csproj" />
+    <Project Path="Microservices/PerformanceReviews/ERP.PerfReview.Application/ERP.PerfReview.Application.csproj" Id="351226a5-db10-4abb-9ccb-65d6b6b38150" />
+    <Project Path="Microservices/PerformanceReviews/ERP.PerfReview.Infrastructure/ERP.PerfReview.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/Microservices/YARP/">
+    <Project Path="Microservices/YARP/YarpGatewayService/YarpGatewayService.csproj" Id="c4fe982c-a80e-46d7-8813-022768556a40" />
+  </Folder>
 </Solution>
