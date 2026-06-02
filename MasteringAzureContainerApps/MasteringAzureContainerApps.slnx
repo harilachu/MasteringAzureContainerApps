@@ -1,6 +1,7 @@
 <Solution>
   <Folder Name="/Common/">
     <Project Path="Common/ERP.Common/ERP.Common.csproj" />
+    <Project Path="Common/ERP.Infrastructure.Core/ERP.Infrastructure.Core.csproj" Id="1a23b4c8-17ed-49e9-80f7-9612bb40b247" />
   </Folder>
   <Folder Name="/Microservices/" />
   <Folder Name="/Microservices/Employees/">
