@@ -26,32 +26,28 @@ namespace ERP.Employees.Infrastructure.ServiceDependencies
 
         private static CosmosClient InitCosmosClientAsync(AppConfig appConfig)
         {
-            //var ManagedIdentityClientId = appConfig.ManagedIdentity;
-            //var credential = new DefaultAzureCredential(new DefaultAzureCredentialOptions
-            //{
-            //    ManagedIdentityClientId = ManagedIdentityClientId
-            //});
-
-            //Use for Local run using Cosmos DB Emulator
-            DefaultAzureCredential credential = new();
-
-            List<string> preferredRegions = new List<string> { "East US", "West US" };
-            var options = new CosmosClientOptions
-            {
-                ApplicationPreferredRegions = preferredRegions,
-                ConnectionMode = ConnectionMode.Gateway,
-                AllowBulkExecution = true,
-                RequestTimeout = TimeSpan.FromSeconds(30),
-                MaxRetryAttemptsOnRateLimitedRequests = 5,
-                MaxRetryWaitTimeOnRateLimitedRequests = TimeSpan.FromSeconds(10)
-            };
-
             if (appConfig.Environment == "Development")
             {
                 return new CosmosClient(appConfig.Cosmos.Endpoint);
             }
             else
             {
+                var ManagedIdentityClientId = appConfig.ManagedIdentity;
+                var credential = new DefaultAzureCredential(new DefaultAzureCredentialOptions
+                {
+                    ManagedIdentityClientId = ManagedIdentityClientId
+                });
+
+                List<string> preferredRegions = new List<string> { Regions.WestUS, Regions.EastUS };
+                var options = new CosmosClientOptions
+                {
+                    ApplicationPreferredRegions = preferredRegions,
+                    ConnectionMode = ConnectionMode.Gateway,
+                    AllowBulkExecution = true,
+                    RequestTimeout = TimeSpan.FromSeconds(30),
+                    MaxRetryAttemptsOnRateLimitedRequests = 5,
+                    MaxRetryWaitTimeOnRateLimitedRequests = TimeSpan.FromSeconds(10)
+                };
                 return new CosmosClient(appConfig.Cosmos.Endpoint, credential, options);
             }
         }

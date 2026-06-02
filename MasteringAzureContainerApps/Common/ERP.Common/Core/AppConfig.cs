@@ -7,6 +7,7 @@ namespace ERP.Common.Core
     public class AppConfig
     {
         public string Environment { get; set; }
+        public string ManagedIdentity { get; set; }
         public CosmosConfig Cosmos { get; set; }
 
     }   
