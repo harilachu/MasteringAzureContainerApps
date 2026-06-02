@@ -1,0 +1,7 @@
+<Solution>
+  <Folder Name="/Common/" />
+  <Folder Name="/Microservices/" />
+  <Folder Name="/Microservices/Employees/" />
+  <Folder Name="/Microservices/PerformanceReviews/" />
+  <Folder Name="/Microservices/YARP/" />
+</Solution>
