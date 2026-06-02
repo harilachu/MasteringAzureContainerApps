@@ -36,11 +36,18 @@ namespace ERP.Employees.Infrastructure.Repositories
             return await cosmosRepository.GetItemAsync<Employee>(id, department, cancellationToken);
         }
 
-        public async Task<Result<List<Employee>>> GetEmployeesByQueryAsync(string empId, string department, CancellationToken cancellationToken)
+        public async Task<Result<List<Employee>>> GetEmployeesByQueryAsync(string department, string empId = "", CancellationToken cancellationToken = default)
         {
-            var queryDefinition = new QueryDefinition(InfraConstants.GET_EMPLOYEE_BY_EMPID_QUERY)
-                .WithParameter("@partitionKey", department)
-                .WithParameter("@empId", empId);
+            var queryDefinition = new QueryDefinition(InfraConstants.GET_EMPLOYEE_BY_EMPID_QUERY);
+            if(!string.IsNullOrEmpty(empId))
+            {
+                queryDefinition.WithParameter("@empId", empId);
+            }
+            if(!string.IsNullOrEmpty(department))
+            {
+                queryDefinition = new QueryDefinition(InfraConstants.GET_EMPLOYEES_BY_DEPT_QUERY);
+                queryDefinition.WithParameter("@partitionKey", department);
+            }
 
             return await cosmosRepository.GetItemsByQueryAsync<Employee>(queryDefinition, cancellationToken);
         }

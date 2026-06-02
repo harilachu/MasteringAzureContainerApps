@@ -21,7 +21,7 @@ namespace ERP.Employees.API.Controllers
         public IActionResult Get([FromRoute] string id, [FromQuery] string department, CancellationToken cancellationToken)
         {
             var query = new GetEmployeeQuery(id, department);
-            ValueTask<Common.Core.Result<GetEmployeeResult>> queryResult = sender.Send(query, cancellationToken);
+            ValueTask<Result<GetEmployeeResult>> queryResult = sender.Send(query, cancellationToken);
 
             var result = queryResult.Result;
 
@@ -38,12 +38,29 @@ namespace ERP.Employees.API.Controllers
         public IActionResult GetEmployeeByEmpId([FromQuery] string empId, [FromQuery] string department, CancellationToken cancellationToken)
         {
             var query = new GetEmployeeByEmpIdQuery(empId, department);
-            ValueTask<Common.Core.Result<GetEmployeeByEmpIdResult>> queryResult = sender.Send(query, cancellationToken);
+            ValueTask<Result<GetEmployeeByEmpIdResult>> queryResult = sender.Send(query, cancellationToken);
 
             var result = queryResult.Result;
 
             return result.Match<GetEmployeeByEmpIdResult, IActionResult>(
                 employeeResult => Ok(employeeResult.Employee),
+                error => BadRequest(new
+                {
+                    status = error.Status,
+                    message = error.Message
+                }));
+        }
+
+        [HttpGet("All")]
+        public IActionResult GetAllEmployeesByDept([FromQuery] string department, CancellationToken cancellationToken)
+        {
+            var query = new GetAllEmployeesByDeptQuery(department);
+            ValueTask<Result<GetAllEmployeesByDeptResult>> queryResult = sender.Send(query, cancellationToken);
+
+            var result = queryResult.Result;
+
+            return result.Match<GetAllEmployeesByDeptResult, IActionResult>(
+                employeesResult => Ok(employeesResult.Employee),
                 error => BadRequest(new
                 {
                     status = error.Status,

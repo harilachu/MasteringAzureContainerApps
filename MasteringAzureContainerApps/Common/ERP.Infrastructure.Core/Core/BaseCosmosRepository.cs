@@ -91,6 +91,7 @@ namespace ERP.Infrastructure.Core
                         items.Add(item);
                     }
                 }
+
                 return Result<List<T>>.Success(items);
             }
             catch (CosmosException ex) when (ex.StatusCode == System.Net.HttpStatusCode.NotFound)

@@ -28,7 +28,7 @@ namespace ERP.Employees.Application.CQRS.Queries
 
         public async ValueTask<Result<GetEmployeeByEmpIdResult>> Handle(GetEmployeeByEmpIdQuery request, CancellationToken cancellationToken)
         {
-            var result = await employeeRepository.GetEmployeesByQueryAsync(request.EmpId, request.Department, cancellationToken);
+            var result = await employeeRepository.GetEmployeesByQueryAsync(request.Department, request.EmpId, cancellationToken);
 
             if(result.IsSuccess && result.Value != null && result.Value.Count > 0)
             {
@@ -38,7 +38,7 @@ namespace ERP.Employees.Application.CQRS.Queries
             }
 
             
-            logger.LogError("Failed to get employee with id {EmployeeId} and department {Department}. Error: {Error}", request.EmpId, request.Department, result.Error);
+            logger.LogError("Failed to get employee with EmpId {EmployeeId} and department {Department}. Error: {Error}", request.EmpId, request.Department, result.Error);
             return Result<GetEmployeeByEmpIdResult>.Failure(result.Error);
         }
     }
