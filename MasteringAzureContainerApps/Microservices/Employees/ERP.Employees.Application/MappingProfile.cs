@@ -9,6 +9,7 @@ namespace ERP.Employees.Application
         public MappingProfile()
         {
             CreateMap<Employee, EmployeeDto>().ReverseMap();
+            CreateMap<Employee, CreateEmployeeDto>().ReverseMap();
         }
     }
 }

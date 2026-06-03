@@ -21,12 +21,12 @@ namespace ERP.Employees.Infrastructure.Repositories
             this.logger = logger;
             this.mapper = mapper;
         }
-        public async Task<Result> AddEmployeeAsync(Employee employee, CancellationToken cancellationToken)
+        public async Task<Result<Employee>> AddEmployeeAsync(Employee employee, CancellationToken cancellationToken)
         {
             return await cosmosRepository.AddItemAsync(employee, employee.Department, cancellationToken);
         }
 
-        public async Task<Result> DeleteEmployeeAsync(string id, string department, CancellationToken cancellationToken)
+        public async Task<Result<Employee>> DeleteEmployeeAsync(string id, string department, CancellationToken cancellationToken)
         {
             return await cosmosRepository.DeleteItemAsync(id, department, cancellationToken);
         }
@@ -43,18 +43,22 @@ namespace ERP.Employees.Infrastructure.Repositories
             {
                 queryDefinition.WithParameter("@empId", empId);
             }
-            if(!string.IsNullOrEmpty(department))
+            if(!string.IsNullOrEmpty(department) && string.IsNullOrEmpty(empId))
             {
                 queryDefinition = new QueryDefinition(InfraConstants.GET_EMPLOYEES_BY_DEPT_QUERY);
+                queryDefinition.WithParameter("@partitionKey", department);
+            }
+            else if(!string.IsNullOrEmpty(department))
+            {
                 queryDefinition.WithParameter("@partitionKey", department);
             }
 
             return await cosmosRepository.GetItemsByQueryAsync<Employee>(queryDefinition, cancellationToken);
         }
 
-        public async Task<Result> UpdateEmployeeAsync(string id, Employee employee, CancellationToken cancellationToken)
+        public async Task<Result<Employee>> UpdateEmployeeAsync(Employee employee, string department, CancellationToken cancellationToken)
         {
-            return await cosmosRepository.UpdateItemAsync(id, employee, cancellationToken);
+            return await cosmosRepository.UpdateItemAsync(employee, employee.Department, cancellationToken);
         }
     }
 }

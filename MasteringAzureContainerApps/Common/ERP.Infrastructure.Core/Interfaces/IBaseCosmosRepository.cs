@@ -10,8 +10,8 @@ namespace ERP.Infrastructure.Core.Interfaces
     {
         Task<Result<T>> GetItemAsync<T>(string id, string partitionKey, CancellationToken cancellationToken);
         Task<Result<List<T>>> GetItemsByQueryAsync<T>(QueryDefinition queryDefinition, CancellationToken cancellationToken);
-        Task<Result> AddItemAsync<T>(T item, string partitionKey, CancellationToken cancellationToken);
-        Task<Result> UpdateItemAsync<T>(string id, T item, CancellationToken cancellationToken);
-        Task<Result> DeleteItemAsync(string id, string partitionKey, CancellationToken cancellationToken);
+        Task<Result<T>> AddItemAsync<T>(T item, string partitionKey, CancellationToken cancellationToken);
+        Task<Result<T>> UpdateItemAsync<T>(T item, string partitionKey, CancellationToken cancellationToken);
+        Task<Result<T>> DeleteItemAsync(string id, string partitionKey, CancellationToken cancellationToken);
     }
 }

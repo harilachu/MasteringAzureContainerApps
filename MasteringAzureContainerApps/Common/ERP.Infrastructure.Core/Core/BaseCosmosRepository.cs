@@ -27,31 +27,32 @@ namespace ERP.Infrastructure.Core
             this.container = cosmosClient.GetContainer(databaseName, containerName);
         }
 
-        public async Task<Result> AddItemAsync<T>(T item, string partitionKey, CancellationToken cancellationToken)
+        public async Task<Result<T>> AddItemAsync<T>(T item, string partitionKey, CancellationToken cancellationToken)
         {
             try
             {
-                await container.CreateItemAsync(item, new PartitionKey(partitionKey), cancellationToken: cancellationToken);
-                return Result.Success();
+                var response = await container.CreateItemAsync(item, new PartitionKey(partitionKey), cancellationToken: cancellationToken);
+                
+                return Result<T>.Success(response.Resource);
             }
             catch (Exception ex)
             {
                 logger.LogError(ex, "Error adding item with partition key '{PartitionKey}'", partitionKey);
-                return Result.Failure(new Error("InternalError", "An error occurred while adding the item."));
+                return Result<T>.Failure(new Error("InternalError", "An error occurred while adding the item."));
             }
         }
 
-        public async Task<Result> DeleteItemAsync(string id, string partitionKey, CancellationToken cancellationToken)
+        public async Task<Result<T>> DeleteItemAsync(string id, string partitionKey, CancellationToken cancellationToken)
         {
             try
             {
-                await container.DeleteItemAsync<T>(id, new PartitionKey(partitionKey), cancellationToken: cancellationToken);
-                return Result.Success();
+                var response = await container.DeleteItemAsync<T>(id, new PartitionKey(partitionKey), cancellationToken: cancellationToken);
+                return Result<T>.Success(response.Resource);
             }
             catch (Exception ex)
             {
                 logger.LogError(ex, "Error deleting item with id '{Id}' and partition key '{PartitionKey}'", id, partitionKey);
-                return Result.Failure(new Error("InternalError", "An error occurred while deleting the item."));
+                return Result<T>.Failure(new Error("InternalError", "An error occurred while deleting the item."));
             }
         }
 
@@ -106,17 +107,17 @@ namespace ERP.Infrastructure.Core
             }
         }
 
-        public async Task<Result> UpdateItemAsync<T>(string id, T item, CancellationToken cancellationToken)
+        public async Task<Result<T>> UpdateItemAsync<T>(T item, string partitionKey, CancellationToken cancellationToken)
         {
             try
             {
-                await container.UpsertItemAsync(item, new PartitionKey(id), cancellationToken: cancellationToken);
-                return Result.Success();
+                var response = await container.UpsertItemAsync(item, new PartitionKey(partitionKey), cancellationToken: cancellationToken);
+                return Result<T>.Success(response.Resource);
             }
             catch (Exception ex)
             {
-                logger.LogError(ex, "Error updating item with id '{Id}'", id);
-                return Result.Failure(new Error("InternalError", "An error occurred while updating the item."));
+                logger.LogError(ex, "Error updating item '{Item}'", item);
+                return Result<T>.Failure(new Error("InternalError", "An error occurred while updating the item."));
             }
         }
     }
