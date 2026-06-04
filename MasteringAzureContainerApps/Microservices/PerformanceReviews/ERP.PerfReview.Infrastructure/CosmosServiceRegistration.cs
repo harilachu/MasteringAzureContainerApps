@@ -1,0 +1,73 @@
+﻿using Azure.Identity;
+using ERP.Common.Core;
+using ERP.Common.Domain;
+using ERP.PerfReview.Application.Interfaces;
+using ERP.PerfReview.Infrastructure.Repositories;
+using ERP.Infrastructure.Core;
+using ERP.Infrastructure.Core.Interfaces;
+using Microsoft.Azure.Cosmos;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
+
+namespace ERP.PerfReview.Infrastructure.ServiceDependencies
+{
+    public static class CosmosServiceRegistration
+    {
+        public static IServiceCollection AddCosmosService(this IServiceCollection services, AppConfig appConfig)
+        {
+            services.AddSingleton<CosmosClient>(sp =>
+            {
+                var appConfig = sp.GetRequiredService<IOptions<AppConfig>>().Value;
+                return InitCosmosClientAsync(appConfig);
+            });
+
+            return services;
+        }
+
+        private static CosmosClient InitCosmosClientAsync(AppConfig appConfig)
+        {
+            if (appConfig.Environment == "Development")
+            {
+                return new CosmosClient(appConfig.Cosmos.Endpoint);
+            }
+            else
+            {
+                var ManagedIdentityClientId = appConfig.ManagedIdentity;
+                var credential = new DefaultAzureCredential(new DefaultAzureCredentialOptions
+                {
+                    ManagedIdentityClientId = ManagedIdentityClientId
+                });
+
+                List<string> preferredRegions = new List<string> { Regions.WestUS, Regions.EastUS };
+                var options = new CosmosClientOptions
+                {
+                    ApplicationPreferredRegions = preferredRegions,
+                    ConnectionMode = ConnectionMode.Gateway,
+                    AllowBulkExecution = true,
+                    RequestTimeout = TimeSpan.FromSeconds(30),
+                    MaxRetryAttemptsOnRateLimitedRequests = 5,
+                    MaxRetryWaitTimeOnRateLimitedRequests = TimeSpan.FromSeconds(10)
+                };
+                return new CosmosClient(appConfig.Cosmos.Endpoint, credential, options);
+            }
+        }
+
+        public static IServiceCollection AddCosmosRepositories(this IServiceCollection services)
+        {
+            services.AddSingleton<IBaseCosmosRepository<Employee>, BaseCosmosRepository<Employee>>();
+            services.AddSingleton<IBaseCosmosRepository<Project>, BaseCosmosRepository<Project>>();
+            services.AddSingleton<IBaseCosmosRepository<PerformanceReview>, BaseCosmosRepository<PerformanceReview>>();
+
+            return services;
+        }
+
+        public static IServiceCollection AddApplicationRepositories(this IServiceCollection services)
+        {
+            services.AddSingleton<IEmployeeRepository, EmployeeRepository>();
+            services.AddSingleton<IProjectsRepository, ProjectsRepository>();
+            services.AddSingleton<IReviewRepository, ReviewRepository>();
+
+            return services;
+        }
+    }
+}

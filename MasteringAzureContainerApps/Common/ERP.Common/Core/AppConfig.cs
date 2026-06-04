@@ -17,5 +17,8 @@ namespace ERP.Common.Core
         public string Endpoint { get; set; }
         public string DatabaseName { get; set; }
         public string EmployeesContainerName { get; set; }
+        public string PerformanceReviewsContainerName { get; set; }
+        public string ProjectsContainerName { get; set; }
+
     }
 }

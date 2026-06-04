@@ -1,0 +1,14 @@
+﻿using AutoMapper;
+using ERP.Common.Domain;
+using ERP.Common.DTO;
+
+namespace ERP.PerfReview.Application
+{
+    public class MappingProfile : Profile
+    {
+        public MappingProfile()
+        {
+            CreateMap<Employee, EmployeeDto>().ReverseMap();
+        }
+    }
+}
