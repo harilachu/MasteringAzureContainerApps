@@ -23,9 +23,9 @@ Package Github Repository: [Synaptrix / Concordia](https://github.com/mrdevrobot
 ### 📥 Startup Projects
 Set Startup projects in Visual Studio to the 3 microservices to run them together for local development and testing.
 ```
-YarpGatewayService
-ERP.Employees.API
-ERP.PerfReview.API
+1. YarpGatewayService
+2. ERP.Employees.API
+3. ERP.PerfReview.API
 ```
 ---
 
