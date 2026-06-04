@@ -1,0 +1,16 @@
+{
+  "workspace": {
+    "id": ""
+  },
+  "entities": {
+    "environments": [],
+    "flows": [],
+    "globals": [],
+    "mocks": [],
+    "specs": [
+      "..\\MasteringAzureContainerApps\\Microservices\\Employees\\ERP.Employees.API\\obj\\Debug\\net10.0\\EndpointInfo\\ERP.Employees.API.json",
+      "..\\MasteringAzureContainerApps\\Microservices\\PerformanceReviews\\ERP.PerfReview.API\\obj\\Debug\\net10.0\\EndpointInfo\\ERP.PerfReview.API.json"
+    ],
+    "collections": []
+  }
+}

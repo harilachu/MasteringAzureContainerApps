@@ -1,0 +1,22 @@
+[
+  {
+    "Name": "ERPProfile",
+    "Projects": [
+      {
+        "Path": "Microservices\\Employees\\ERP.Employees.API\\ERP.Employees.API.csproj",
+        "Action": "Start",
+        "DebugTarget": "http"
+      },
+      {
+        "Path": "Microservices\\PerformanceReviews\\ERP.PerfReview.API\\ERP.PerfReview.API.csproj",
+        "Action": "Start",
+        "DebugTarget": "http"
+      },
+      {
+        "Path": "Microservices\\YARP\\YarpGatewayService\\YarpGatewayService.csproj",
+        "Action": "Start",
+        "DebugTarget": "https"
+      }
+    ]
+  }
+]

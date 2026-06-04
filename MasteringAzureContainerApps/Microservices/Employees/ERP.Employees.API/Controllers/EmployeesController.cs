@@ -8,7 +8,7 @@ using Synaptrix;
 namespace ERP.Employees.API.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     public class EmployeesController : ControllerBase
     {
         private readonly ISender sender;

@@ -1,0 +1,407 @@
+{
+  "info": {
+    "_postman_id": "7ff737c4-e722-4857-9a2f-f8bdb9f8f7cd",
+    "name": "MazteringAzureContainerApps",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "7501529"
+  },
+  "item": [
+    {
+      "name": "GetEmployeesById",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:5252/Employees/7EC9B97E-1F01-4518-95EC-9CF0979244FF?department=IT",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5252",
+          "path": [
+            "Employees",
+            "7EC9B97E-1F01-4518-95EC-9CF0979244FF"
+          ],
+          "query": [
+            {
+              "key": "department",
+              "value": "IT"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "CreateEmployee",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n     \"EmpId\": \"103\",\r\n    \"Department\": \"IT\",\r\n    \"EmpName\": \"Mark Antony\",\r\n    \"State\": \"New York\",\r\n    \"ManagerId\": \"201\",\r\n    \"AnnualIncome\": \"450000\",\r\n    \"JoiningYear\": 2026\r\n\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:5252/Employees",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5252",
+          "path": [
+            "Employees"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "UpdateEmployee",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"EmpId\": \"103\",\r\n    \"Department\": \"IT\",\r\n    \"EmpName\": \"Mark Antony\",\r\n    \"State\": \"California\",\r\n    \"ManagerId\": \"201\",\r\n    \"AnnualIncome\": \"450000\",\r\n    \"JoiningYear\": 2026\r\n\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:5252/Employees",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5252",
+          "path": [
+            "Employees"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "DeleteEmployee",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n     \"EmpId\": \"103\",\r\n    \"Department\": \"IT\",\r\n    \"EmpName\": \"Mark Antony\",\r\n    \"State\": \"New York\",\r\n    \"ManagerId\": \"201\",\r\n    \"AnnualIncome\": \"450000\",\r\n    \"JoiningYear\": 2026\r\n\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:5252/Employees?empId=103&department=IT",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5252",
+          "path": [
+            "Employees"
+          ],
+          "query": [
+            {
+              "key": "empId",
+              "value": "103"
+            },
+            {
+              "key": "department",
+              "value": "IT"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GetEmployeesByEmpId",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:5252/Employees?empId=201&department=IT",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5252",
+          "path": [
+            "Employees"
+          ],
+          "query": [
+            {
+              "key": "empId",
+              "value": "201"
+            },
+            {
+              "key": "department",
+              "value": "IT"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GetAllEmployeesByDept",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:5252/Employees/All?department=IT",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5252",
+          "path": [
+            "Employees",
+            "All"
+          ],
+          "query": [
+            {
+              "key": "department",
+              "value": "IT"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GetProjectsHistory",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:5052/Review/202/projects",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5052",
+          "path": [
+            "Review",
+            "202",
+            "projects"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GetBonus",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:5052/api/Review/bonus?empId=202&department=Networking",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5052",
+          "path": [
+            "api",
+            "Review",
+            "bonus"
+          ],
+          "query": [
+            {
+              "key": "empId",
+              "value": "202",
+              "type": "text"
+            },
+            {
+              "key": "department",
+              "value": "Networking",
+              "type": "text"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GetSummary",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:5052/api/Review/summary?department=IT",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5052",
+          "path": [
+            "api",
+            "Review",
+            "summary"
+          ],
+          "query": [
+            {
+              "key": "department",
+              "value": "IT"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "YARP-GenerateToken",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": "https://localhost:7086/Token/generate?apiKey=9A0148B2-F3D7-4CFA-97F2-49A34D3D9625",
+          "protocol": "https",
+          "host": [
+            "localhost"
+          ],
+          "port": "7086",
+          "path": [
+            "Token",
+            "generate"
+          ],
+          "query": [
+            {
+              "key": "apiKey",
+              "value": "9A0148B2-F3D7-4CFA-97F2-49A34D3D9625",
+              "type": "text"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "YARP-GetEmployeesById",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzY3AiOlsiZW1wbG95ZWUtYXBpLWFjY2VzcyIsInJldmlldy1hcGktYWNjZXNzIl0sIm5iZiI6MTc4MDU3NjYyNiwiZXhwIjoxNzgwNTgwMjI2LCJpYXQiOjE3ODA1NzY2MjYsImlzcyI6IkVtcGxveWVlUmV2aWV3QXBwIiwiYXVkIjoiRVJQQXBpQ2xpZW50In0.WVpcwiEsmWrgE9UWvSvIUJqa2FLN2BXewXCm3L1-Duk",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://localhost:7086/api/Employees/7EC9B97E-1F01-4518-95EC-9CF0979244FF?department=IT",
+          "protocol": "https",
+          "host": [
+            "localhost"
+          ],
+          "port": "7086",
+          "path": [
+            "api",
+            "Employees",
+            "7EC9B97E-1F01-4518-95EC-9CF0979244FF"
+          ],
+          "query": [
+            {
+              "key": "department",
+              "value": "IT"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "YARP-GetAllEmployeesByDept",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzY3AiOlsiZW1wbG95ZWUtYXBpLWFjY2VzcyIsInJldmlldy1hcGktYWNjZXNzIl0sIm5iZiI6MTc4MDU3NjYyNiwiZXhwIjoxNzgwNTgwMjI2LCJpYXQiOjE3ODA1NzY2MjYsImlzcyI6IkVtcGxveWVlUmV2aWV3QXBwIiwiYXVkIjoiRVJQQXBpQ2xpZW50In0.WVpcwiEsmWrgE9UWvSvIUJqa2FLN2BXewXCm3L1-Duk",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://localhost:7086/api/Employees/All?department=IT",
+          "protocol": "https",
+          "host": [
+            "localhost"
+          ],
+          "port": "7086",
+          "path": [
+            "api",
+            "Employees",
+            "All"
+          ],
+          "query": [
+            {
+              "key": "department",
+              "value": "IT"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "YARP-GetSummary",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzY3AiOlsiZW1wbG95ZWUtYXBpLWFjY2VzcyIsInJldmlldy1hcGktYWNjZXNzIl0sIm5iZiI6MTc4MDU3NjYyNiwiZXhwIjoxNzgwNTgwMjI2LCJpYXQiOjE3ODA1NzY2MjYsImlzcyI6IkVtcGxveWVlUmV2aWV3QXBwIiwiYXVkIjoiRVJQQXBpQ2xpZW50In0.WVpcwiEsmWrgE9UWvSvIUJqa2FLN2BXewXCm3L1-Duk",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://localhost:7086/api/Review/summary?department=IT",
+          "protocol": "https",
+          "host": [
+            "localhost"
+          ],
+          "port": "7086",
+          "path": [
+            "api",
+            "Review",
+            "summary"
+          ],
+          "query": [
+            {
+              "key": "department",
+              "value": "IT"
+            }
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}

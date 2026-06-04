@@ -6,7 +6,7 @@ using Synaptrix;
 namespace ERP.PerfReview.API.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     public class ReviewController : ControllerBase
     {
         private readonly ISender sender;
