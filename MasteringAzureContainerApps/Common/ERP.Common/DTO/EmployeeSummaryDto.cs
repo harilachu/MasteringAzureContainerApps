@@ -6,7 +6,7 @@ namespace ERP.Common.DTO
 {
     public class EmployeeSummaryDto
     {
-        public int EmployeeId { get; set; }
+        public string EmployeeId { get; set; }
         public string FullName { get; set; }
         public decimal AverageScore { get; set; }
         public int ProjectsCompleted { get; set; }

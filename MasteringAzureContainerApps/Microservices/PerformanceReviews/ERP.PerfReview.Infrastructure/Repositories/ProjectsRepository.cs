@@ -55,7 +55,19 @@ namespace ERP.PerfReview.Infrastructure.Repositories
 
         public async Task<int> QueryProjectsCount(string empId, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            var queryDefinition = new QueryDefinition(InfraConstants.GET_RECENT_PROJECTS_BY_EMPID_QUERY);
+            if (!string.IsNullOrEmpty(empId))
+            {
+                queryDefinition.WithParameter("@empId", empId);
+            }
+
+            var result = await cosmosRepository.GetItemsByQueryAsync<Project>(queryDefinition, cancellationToken);
+            if (result != null && result.Value != null && result.Value.Count() > 0)
+            {
+                return result.Value.Count();
+            }
+
+            return 0;
         }
     }
 }

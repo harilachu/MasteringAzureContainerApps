@@ -16,15 +16,13 @@ namespace ERP.PerfReview.Application.CQRS.Queries
     public class GetBonusQueryHandler : IRequestHandler<GetBonusQuery, Result<GetBonusResult>>
     {
         private readonly ILogger<GetBonusQueryHandler> logger;
-        private readonly IProjectsRepository projectsRepository;
         private readonly IEmployeeRepository employeeRepository;
         private readonly IBonusService bonusService;
         private readonly IMapper mapper;
 
-        public GetBonusQueryHandler(ILogger<GetBonusQueryHandler> logger, IProjectsRepository projectsRepository, IEmployeeRepository employeeRepository, IBonusService bonusService, IMapper mapper)
+        public GetBonusQueryHandler(ILogger<GetBonusQueryHandler> logger, IEmployeeRepository employeeRepository, IBonusService bonusService, IMapper mapper)
         {
             this.logger = logger;
-            this.projectsRepository = projectsRepository;
             this.employeeRepository = employeeRepository;
             this.bonusService = bonusService;
             this.mapper = mapper;

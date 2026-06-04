@@ -49,5 +49,22 @@ namespace ERP.PerfReview.API.Controllers
                    message = error.Message
                }));
         }
+
+        [HttpGet("summary")]
+        public async Task<IActionResult> GetSummaryReport([FromQuery] string department, CancellationToken cancellationToken)
+        {
+            var query = new GetSummaryQuery(department);
+            ValueTask<Result<GetSummaryResult>> queryResult = sender.Send(query, cancellationToken);
+
+            var result = queryResult.Result;
+
+            return result.Match<GetSummaryResult, IActionResult>(
+               summaryResult => Ok(summaryResult.EmployeeSummaryInfo),
+               error => BadRequest(new
+               {
+                   status = error.Status,
+                   message = error.Message
+               }));
+        }
     }
 }
