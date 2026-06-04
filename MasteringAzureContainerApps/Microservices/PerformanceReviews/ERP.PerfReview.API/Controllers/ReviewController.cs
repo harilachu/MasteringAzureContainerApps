@@ -32,5 +32,22 @@ namespace ERP.PerfReview.API.Controllers
                    message = error.Message
                }));
         }
+
+        [HttpGet("bonus")]
+        public async Task<IActionResult> GetBonusDetails([FromQuery]string empId, [FromQuery]string department, CancellationToken cancellationToken)
+        {
+            var query = new GetBonusQuery(empId, department);
+            ValueTask<Result<GetBonusResult>> queryResult = sender.Send(query, cancellationToken);
+
+            var result = queryResult.Result;
+
+            return result.Match<GetBonusResult, IActionResult>(
+               bonusResult => Ok(bonusResult.BonusInfo),
+               error => BadRequest(new
+               {
+                   status = error.Status,
+                   message = error.Message
+               }));
+        }
     }
 }

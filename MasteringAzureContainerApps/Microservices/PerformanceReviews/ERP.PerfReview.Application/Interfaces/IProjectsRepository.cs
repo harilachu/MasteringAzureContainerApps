@@ -9,5 +9,8 @@ namespace ERP.PerfReview.Application.Interfaces
     public interface IProjectsRepository
     {
         Task<Result<List<Project>>> QueryRecentProjects(string empId, CancellationToken cancellationToken);
+        Task<bool> HasProjectCompletedOnTime(string empId, CancellationToken cancellationToken);
+        Task<int> QueryProjectsCount(string empId, CancellationToken cancellationToken);
+
     }
 }

@@ -35,5 +35,27 @@ namespace ERP.PerfReview.Infrastructure.Repositories
 
             return await cosmosRepository.GetItemsByQueryAsync<Project>(queryDefinition, cancellationToken);
         }
+
+        public async Task<bool> HasProjectCompletedOnTime(string empId, CancellationToken cancellationToken)
+        {
+            var queryDefinition = new QueryDefinition(InfraConstants.HAS_PROJECT_COMPLETED_ON_TIME_QUERY);
+            if (!string.IsNullOrEmpty(empId))
+            {
+                queryDefinition.WithParameter("@empId", empId);
+            }
+
+            var result = await cosmosRepository.GetItemsByQueryAsync<Project>(queryDefinition, cancellationToken);
+            if (result != null && result.Value != null && result.Value.Count() > 0)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        public async Task<int> QueryProjectsCount(string empId, CancellationToken cancellationToken)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

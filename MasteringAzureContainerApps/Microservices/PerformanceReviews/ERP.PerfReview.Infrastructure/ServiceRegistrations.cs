@@ -1,4 +1,6 @@
 ﻿using ERP.Common.Core;
+using ERP.PerfReview.Application.Interfaces;
+using ERP.PerfReview.Infrastructure.Services;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace ERP.PerfReview.Infrastructure.ServiceDependencies
@@ -11,6 +13,7 @@ namespace ERP.PerfReview.Infrastructure.ServiceDependencies
             .AddCosmosRepositories()
             .AddApplicationRepositories();
 
+            services.AddSingleton<IBonusService, BonusService>();
             return services;
         }
     }

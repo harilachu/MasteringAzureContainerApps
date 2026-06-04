@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
 using ERP.Common.Domain;
+using ERP.Infrastructure.Core;
 using ERP.Infrastructure.Core.Interfaces;
 using ERP.PerfReview.Application.Interfaces;
+using Microsoft.Azure.Cosmos;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -22,19 +24,22 @@ namespace ERP.PerfReview.Infrastructure.Repositories
             this.mapper = mapper;
         }
 
-        public async Task<decimal?> ComputeAverageScore(int employeeId, DateTime oneYearAgo, CancellationToken cancellationToken)
+        public async Task<decimal?> ComputeAverageScore(string empId, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
-        }
+            var queryDefinition = new QueryDefinition(InfraConstants.GET_PERF_REVIEW_SCORE_BY_EMPID_QUERY);
+            if (!string.IsNullOrEmpty(empId))
+            {
+                queryDefinition.WithParameter("@empId", empId);
+            }
 
-        public async Task<bool> HasProjectCompletedOnTime(int employeeId, DateTime oneYearAgo, CancellationToken cancellationToken)
-        {
-            throw new NotImplementedException();
-        }
+            var result =await cosmosRepository.GetItemsByQueryAsync<PerformanceReview>(queryDefinition, cancellationToken);
+            if(result!=null && result.Value!=null && result.Value.Count() > 0)
+            {
+                var reviews = result.Value.ToList();
+                return reviews.Average(r => (decimal?) r.Score);
+            }
 
-        public async Task<int> QueryProjectsCount(int employeeId, CancellationToken cancellationToken)
-        {
-            throw new NotImplementedException();
+            return 0;
         }
     }
 }
