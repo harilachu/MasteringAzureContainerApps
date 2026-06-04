@@ -1,0 +1,72 @@
+[
+	{
+		"id": "7EC9B97E-1F01-4518-95EC-9CF0979244FF",
+		"EmpId": "101",
+		"Department": "IT",
+		"EmpName": "Xavier Gonsalas",
+		"State": "New York",
+		"ManagerId": "201",
+		"AnnualIncome": "400000",
+		"JoiningYear": 2023
+	},
+	{
+		"id": "A3079879-1FC5-410E-8B24-C4325D12A825",
+		"EmpId": "102",
+		"Department": "IT",
+		"EmpName": "John Doe",
+		"State": "New York",
+		"ManagerId": "201",
+		"AnnualIncome": "500000",
+		"JoiningYear": 2024
+	},
+	{
+		"id": "AFA7128F-AEDF-487F-A70E-AEF31A6D970C",
+		"EmpId": "103",
+		"Department": "Networking",
+		"EmpName": "Dennis Ritchie",
+		"State": "New Jersy",
+		"ManagerId": "202",
+		"AnnualIncome": "300000",
+		"JoiningYear": 2024
+	},
+	{
+		"id": "59423662-0C89-43DB-96F4-E290DDF48CAD",
+		"EmpId": "104",
+		"Department": "Networking",
+		"EmpName": "Guy Mannis",
+		"State": "New York",
+		"ManagerId": "202",
+		"AnnualIncome": "400000",
+		"JoiningYear": 2025
+	},
+	{
+		"id": "05D4A757-D423-4FC8-809D-439B6D20B50C",
+		"EmpId": "201",
+		"Department": "IT",
+		"EmpName": "Clark Varios",
+		"State": "New York",
+		"ManagerId": "301",
+		"AnnualIncome": "800000",
+		"JoiningYear": 2021
+	},
+	{
+		"id": "44E2AEE4-0C7A-489A-8B04-733C70D7A78E",
+		"EmpId": "202",
+		"Department": "Networking",
+		"EmpName": "Mike Martin",
+		"State": "New Jersy",
+		"ManagerId": "301",
+		"AnnualIncome": "600000",
+		"JoiningYear": 2022
+	},
+	{
+		"id": "8A0F9450-646E-4848-930B-F965850220D3",
+		"EmpId": "301",
+		"Department": "Management",
+		"EmpName": "Gladius Evangelin",
+		"State": "New York",
+		"ManagerId": "0",
+		"AnnualIncome": "1200000",
+		"JoiningYear": 2020
+	}
+]

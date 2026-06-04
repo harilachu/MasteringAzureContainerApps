@@ -1,0 +1,65 @@
+[
+    {
+        "id": "6FADFD41-AE03-4C0D-AB27-DFD02AF4360F",
+        "ProjectId": "P1100",
+        "ProjectName": "Synaptrix",
+        "EmpId": "101",
+        "AssignedDate": "2025-04-02T10:00:00Z",
+        "CompletionDate": "2025-12-02T10:00:00Z",
+        "IsCompletedOnTime": true
+    },
+    {
+        "id": "00D01C28-9E9A-4322-BD0E-B3EBC6C03A95",
+        "ProjectId": "P1100",
+        "ProjectName": "Synaptrix",
+        "EmpId": "102",
+        "AssignedDate": "2025-04-02T10:00:00Z",
+        "CompletionDate": "2025-12-02T10:00:00Z",
+        "IsCompletedOnTime": true
+    },
+    {
+        "id": "8FCE7F96-B72C-4CFD-8A69-58E58AE7C897",
+        "ProjectId": "P1200",
+        "ProjectName": "CoreLink",
+        "EmpId": "103",
+        "AssignedDate": "2025-06-02T10:00:00Z",
+        "CompletionDate": "2026-02-12T10:00:00Z",
+        "IsCompletedOnTime": false
+    },
+    {
+        "id": "DAC27AF3-2A31-4C93-AA8F-3AF0694325A3",
+        "ProjectId": "P1201",
+        "ProjectName": "NetMatrix",
+        "EmpId": "104",
+        "AssignedDate": "2025-06-02T10:00:00Z",
+        "CompletionDate": "2025-12-10T10:00:00Z",
+        "IsCompletedOnTime": true
+    },
+    {
+        "id": "D5005D91-2AAE-482B-A23A-9FC195BF93A5",
+        "ProjectId": "P1100",
+        "ProjectName": "Synaptrix",
+        "EmpId": "201",
+        "AssignedDate": "2025-04-02T10:00:00Z",
+        "CompletionDate": "2025-12-02T10:00:00Z",
+        "IsCompletedOnTime": true
+    },
+    {
+        "id": "68825701-2E6E-49AC-880C-268F3DB8178E",
+        "ProjectId": "P1200",
+        "ProjectName": "CoreLink",
+        "EmpId": "202",
+        "AssignedDate": "2025-06-02T10:00:00Z",
+        "CompletionDate": "2026-02-12T10:00:00Z",
+        "IsCompletedOnTime": false
+    },
+    {
+        "id": "C7AE9480-F042-424E-8745-F0D1DD354ACC",
+        "ProjectId": "P1201",
+        "ProjectName": "NetMatrix",
+        "EmpId": "202",
+        "AssignedDate": "2025-06-02T10:00:00Z",
+        "CompletionDate": "2025-12-10T10:00:00Z",
+        "IsCompletedOnTime": true
+    }
+]
