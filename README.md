@@ -4,7 +4,7 @@ This repository comprises of microservice projects used for Udemy course learnin
 ## 🥡 CosmosDB 
 `CosmosDB Emulator` is used for local development and testing, and `Azure CosmosDB` is used for production deployment. The microservices are built using .NET 10, and the container images are built using .NET 10 SDK image as the base image.
 
-**CosmosDB json** files can be found in the `CosmosDB` 📁 folder.  
+**CosmosDB json** files can be found in the [`CosmosDB`](https://github.com/harilachu/MasteringAzureContainerApps/tree/main/CosmosDB) 📁 folder.  
 
 ## 🏛️ Architecture 
 **Clean Architecture** is followed for the microservices, and the solution structure is organized in a way to separate concerns and promote maintainability.  
@@ -27,6 +27,9 @@ Set Startup projects in Visual Studio to the 3 microservices to run them togethe
 2. ERP.Employees.API
 3. ERP.PerfReview.API
 ```
+
+Run these projects from Visual Studio or using the terminal with `dotnet run` command to start the microservices locally for development and testing.
+
 ---
 
 ## Build Container Apps 🧑‍💻 ##
