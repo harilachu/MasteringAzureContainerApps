@@ -211,27 +211,24 @@
         "method": "GET",
         "header": [],
         "url": {
-          "raw": "http://localhost:5052/api/Review/bonus?empId=202&department=Networking",
+          "raw": "http://localhost:5052/Review/bonus?empId=202&department=Networking",
           "protocol": "http",
           "host": [
             "localhost"
           ],
           "port": "5052",
           "path": [
-            "api",
             "Review",
             "bonus"
           ],
           "query": [
             {
               "key": "empId",
-              "value": "202",
-              "type": "text"
+              "value": "202"
             },
             {
               "key": "department",
-              "value": "Networking",
-              "type": "text"
+              "value": "Networking"
             }
           ]
         }
@@ -244,14 +241,13 @@
         "method": "GET",
         "header": [],
         "url": {
-          "raw": "http://localhost:5052/api/Review/summary?department=IT",
+          "raw": "http://localhost:5052/Review/summary?department=IT",
           "protocol": "http",
           "host": [
             "localhost"
           ],
           "port": "5052",
           "path": [
-            "api",
             "Review",
             "summary"
           ],
