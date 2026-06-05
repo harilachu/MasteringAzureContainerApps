@@ -12,6 +12,7 @@ namespace ERP.Employees.Application
             services.AddAutoMapper(cfg =>
             {//optional config
             }, typeof(MappingProfile).Assembly);
+
             return services;
         }
     }

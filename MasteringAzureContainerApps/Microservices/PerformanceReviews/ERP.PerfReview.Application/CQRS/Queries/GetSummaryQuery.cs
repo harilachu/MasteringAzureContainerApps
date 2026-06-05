@@ -1,4 +1,8 @@
-﻿using AutoMapper;
+﻿
+#define DAPRCLIENT
+
+using AutoMapper;
+using Dapr.Client;
 using ERP.Common.Core;
 using ERP.Common.Domain;
 using ERP.Common.DTO;
@@ -8,6 +12,7 @@ using Microsoft.Extensions.Logging;
 using Synaptrix;
 using System;
 using System.Collections.Generic;
+using System.Net.Http.Json;
 using System.Text;
 
 namespace ERP.PerfReview.Application.CQRS.Queries
@@ -21,32 +26,42 @@ namespace ERP.PerfReview.Application.CQRS.Queries
         private readonly IEmployeeRepository employeeRepository;
         private readonly IBonusService bonusService;
         private readonly IMapper mapper;
+        private readonly DaprClient daprClient;
+        private readonly IHttpClientFactory httpClientFactory;
 
-        public GetSummaryQueryHandler(ILogger<GetSummaryQueryHandler> logger, IProjectsRepository projectsRepository, IEmployeeRepository employeeRepository, IBonusService bonusService, IMapper mapper)
+        public GetSummaryQueryHandler(ILogger<GetSummaryQueryHandler> logger, IProjectsRepository projectsRepository, IEmployeeRepository employeeRepository, 
+            IBonusService bonusService, IMapper mapper, DaprClient daprClient, IHttpClientFactory httpClientFactory)
         {
             this.logger = logger;
             this.projectsRepository = projectsRepository;
             this.employeeRepository = employeeRepository;
             this.bonusService = bonusService;
             this.mapper = mapper;
+            this.daprClient = daprClient;
+            this.httpClientFactory = httpClientFactory;
         }
 
         public async ValueTask<Result<GetSummaryResult>> Handle(GetSummaryQuery request, CancellationToken cancellationToken)
         {
-            var result = await employeeRepository.GetEmployeesByQueryAsync(request.Department, null, cancellationToken);
-            if (!result.IsSuccess || result.Value == null)
+            var employeeDto = new List<EmployeeDto>();
+            try
             {
-                logger.LogError("Failed to get employee details for employee within department {Department}. Error: {Error}", request.Department, result.Error);
-                return Result<GetSummaryResult>.Failure(result.Error);
+#if DAPRCLIENT
+                employeeDto = await daprClient.InvokeMethodAsync<List<EmployeeDto>>(HttpMethod.Get, "employee-app", $"Employees/All?department={request.Department}", cancellationToken);
+#else
+                var httpclient = httpClientFactory.CreateClient("employee-app");
+                httpclient.DefaultRequestHeaders.Add("X-Request-ID", Guid.NewGuid().ToString());
+                employeeDto = await httpclient.GetFromJsonAsync<List<EmployeeDto>>($"Employees/All?department={request.Department}", cancellationToken);
+#endif
             }
-            else if (result.Value != null && result.Value.Count == 0)
+            catch (Exception ex)
             {
-                logger.LogInformation("No employee details found for employee within department {Department}.", request.Department);
-                return Result<GetSummaryResult>.Success(new GetSummaryResult(new List<EmployeeSummaryDto>()));
+                logger.LogError(ex, "Error occurred while invoking employee dapr service for employees within department {Department}.",  request.Department);
+                return Result<GetSummaryResult>.Failure(new Error("EmployeeDaprServiceError", $"Failed to retrieve employee details for employees in department {request.Department}."));
             }
 
             var summaries = new List<EmployeeSummaryDto>();
-            var employees = result.Value;
+            var employees = mapper.Map<List<Employee>>(employeeDto);
 
             foreach (var e in employees)
             {

@@ -10,6 +10,8 @@ namespace ERP.Common.Core
         public string ManagedIdentity { get; set; }
         public CosmosConfig Cosmos { get; set; }
 
+        public string EmployeeDaprAppId { get; set; }
+
     }   
 
     public class CosmosConfig
