@@ -33,7 +33,7 @@ Run these projects from Visual Studio or using the terminal with `dotnet run` co
 ---
 
 ## Build Container Apps 🧑‍💻 ##
-Container Apps can be built referring to the instructions in [`ContainerApps Build.md`](https://github.com/harilachu/MasteringAzureContainerApps/blob/main/ContainerApps%20Build.md) file.
+Container Apps can be built referring to the instructions in [`ContainerApps Build.md`](https://github.com/harilachu/MasteringAzureContainerApps/blob/main/CONTAINERAPPS_BUILD.md) file.
 
 ---
 
