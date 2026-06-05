@@ -36,9 +36,9 @@ Container Apps can be built referring to the instructions in [`ContainerApps Bui
 
 ## Running locally using Dapr 🎯 ##
 
-> Dapr Implementation can be found in the branch named `dapr-implementation`, and the instructions mentioned below are for running the microservices locally using Dapr.
+> ℹ️ Dapr Implementation can be found in the branch named `dapr-implementation`, and the instructions mentioned below are for running the microservices locally using Dapr.
 
-`Note :` ❗ Docker needs to be installed and running to run the microservices locally using Dapr.
+`Note :` ❗ **Docker** needs to be installed and running to run the microservices locally using Dapr.
 
 ### 1. Checkout branch ###
 Check out to the branch named `dapr-implementation` to run the microservices locally using Dapr.
@@ -47,8 +47,13 @@ git checkout dapr-implementation
 ```
 
 ### 2. Install Dapr CLI ###
+> 📄 Refer Dapr documentation for more details on installing Dapr CLI: [Dapr CLI Installation](https://docs.dapr.io/getting-started/install-dapr-cli/)
 ``` 
 winget install Dapr.CLI
+```
+Dapr will be installed in the System directory `C:\Users\<username>\.dapr\bin` and you can verify the installation by running the following command in the terminal:
+```
+dapr --h
 ```
 ### 3.Start Dapr with docker ###
 ```
@@ -56,6 +61,7 @@ dapr init
 ```
 ### 4.Invoke using HTTP ###
 Below command will start running the microservices with Dapr sidecar, and you can invoke the microservices using HTTP calls to the Dapr sidecar ports.
+> ℹ️ Run these commands in their respective project folders in the terminal to start the microservices with Dapr sidecar.
 ```
 dapr run --app-id employee-app --app-port 5252  --dapr-http-port 3500 -- dotnet run
 
