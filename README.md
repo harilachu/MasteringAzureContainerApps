@@ -1,8 +1,9 @@
-# MasteringAzureContainerApps 🌐
+# 🌐 MasteringAzureContainerApps 
 This repository comprises of microservice projects used for Udemy course learning Azure Container Apps, which can be hosted in any microservice orchestration environment.
 
 ## 🥡 CosmosDB 
-`CosmosDB Emulator` is used for local development and testing, and `Azure CosmosDB` is used for production deployment. The microservices are built using .NET 10, and the container images are built using .NET 10 SDK image as the base image.
+`CosmosDB Emulator` is used for local development and testing, and `Azure CosmosDB` is used for production deployment. The microservices are built using .NET 10, and the container images are built using .NET 10 SDK image as the base image.  
+[Azure Cosmos DB Emulator Installer](https://learn.microsoft.com/en-us/azure/cosmos-db/how-to-develop-emulator?tabs=windows%2Ccsharp&pivots=api-nosql#install-the-emulator) 📦
 
 **CosmosDB json** files can be found in the [`CosmosDB`](https://github.com/harilachu/MasteringAzureContainerApps/tree/main/CosmosDB) 📁 folder.  
 
@@ -32,12 +33,20 @@ Run these projects from Visual Studio or using the terminal with `dotnet run` co
 
 ---
 
-## Build Container Apps 🧑‍💻 ##
+##  📫 Postman files for local testing ##
+
+The postman collection can be found in the [`postman`](https://github.com/harilachu/MasteringAzureContainerApps/tree/main/postman/collections) 📁 folder.  
+Import this collection into postman to test the APIs locally or after Azure deployments.
+The collection contains all the API endpoints and request parameters pre-configured.
+
+---
+
+## 🧑‍💻 Build Container Apps  ##
 Container Apps can be built referring to the instructions in [`ContainerApps Build.md`](https://github.com/harilachu/MasteringAzureContainerApps/blob/main/CONTAINERAPPS_BUILD.md) file.
 
 ---
 
-## Running locally using Dapr 🎯 ##
+## 🎯 Running locally using Dapr  ##
 
 > ℹ️ Dapr Implementation can be found in the branch named `dapr-implementation`, and the instructions mentioned below are for running the microservices locally using Dapr.
 
