@@ -80,3 +80,31 @@ dapr run --app-id employee-app --app-port 5252  --dapr-http-port 3500 -- dotnet 
 dapr run --app-id review-app --app-port 5052  --dapr-http-port 3501 -- dotnet run
 ```
 ---
+## 📦 Build Container Apps using AZ CLI  ##
+
+### 🔧 Create the image and publish to registry (ACR)
+
+`Note 1:` ❗ Change the version number before building
+
+`Note 2:` ❌ Close solution file if opened from Visual studio
+
+`Note 3:` ℹ️ Run the below commands from Solution file path `MasteringAzureContainerApps`
+
+#### 1. Building Employee App Service
+
+```azurepowershell
+az acr build --registry containerreg --file ./Microservices/Employees/ERP.Employees.API/DockerFile --image employeeappservice:v1.0 .
+```
+
+#### 2. Building Review App Service
+
+```azurepowershell
+az acr build --registry containerreg --file ./Microservices/PerformanceReviews/ERP.PerfReview.API/DockerFile --image reviewappservice:v1.0 .
+```
+
+#### 3. Building YARP Gateway Service
+
+```azurepowershell
+az acr build --registry containerreg --file ./Microservices/YARP/YarpGatewayService/DockerFile --image yarpgatewayservice:v1.0 .
+```
+---
