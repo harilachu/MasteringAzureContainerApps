@@ -1,4 +1,4 @@
-﻿#define DAPRCLIENT
+﻿//#define DAPRCLIENT
 
 using AutoMapper;
 using Dapr.Client;
@@ -47,8 +47,19 @@ namespace ERP.PerfReview.Application.CQRS.Queries
                 employeeDto = await daprClient.InvokeMethodAsync<EmployeeDto>(HttpMethod.Get, "employee-app", $"Employees?empId={request.EmpId}&department={request.Department}", cancellationToken);
 #else
                 var httpclient = httpClientFactory.CreateClient("employee-app");
-                httpclient.DefaultRequestHeaders.Add("X-Request-ID", Guid.NewGuid().ToString());
-                employeeDto = await httpclient.GetFromJsonAsync<EmployeeDto>($"Employees?empId={request.EmpId}&department={request.Department}", cancellationToken);
+                var requestUri = $"Employees?empId={request.EmpId}&department={request.Department}";
+                var requestId = Guid.NewGuid().ToString();
+
+                using var requestMsg = new HttpRequestMessage(HttpMethod.Get, requestUri);
+                requestMsg.Headers.Add("X-Request-ID", requestId);
+
+                // log outgoing headers for troubleshooting
+                logger.LogInformation("Calling employee-app {Uri} with Request-ID {RequestId}. Outgoing headers: {Headers}",
+                    requestUri, requestId, string.Join(", ", requestMsg.Headers.Select(h => $"{h.Key}:{string.Join(';', h.Value)}")));
+
+                using var response = await httpclient.SendAsync(requestMsg, HttpCompletionOption.ResponseHeadersRead, cancellationToken);
+                response.EnsureSuccessStatusCode();
+                employeeDto = await response.Content.ReadFromJsonAsync<EmployeeDto>(cancellationToken: cancellationToken);
 #endif
             }
             catch (Exception ex)

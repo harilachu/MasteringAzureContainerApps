@@ -1,3 +1,4 @@
+using AutoMapper.Configuration.Annotations;
 using ERP.Common.Core;
 using ERP.Common.DTO;
 using ERP.Employees.Application.CQRS.Commands;
@@ -12,10 +13,12 @@ namespace ERP.Employees.API.Controllers
     public class EmployeesController : ControllerBase
     {
         private readonly ISender sender;
+        private readonly ILogger<EmployeesController> logger;
 
-        public EmployeesController(ISender sender)
+        public EmployeesController(ISender sender, ILogger<EmployeesController> logger)
         {
             this.sender = sender;
+            this.logger = logger;
         }
 
         [HttpGet("{id}")]
@@ -38,6 +41,16 @@ namespace ERP.Employees.API.Controllers
         [HttpGet()]
         public IActionResult GetEmployeeByEmpId([FromQuery] string empId, [FromQuery] string department, CancellationToken cancellationToken)
         {
+            var allHeaders = this.HttpContext.Request.Headers
+                .Select(h => $"{h.Key}:{string.Join(';', h.Value)}");
+            logger.LogInformation("Incoming request headers: {Headers}", string.Join(", ", allHeaders));
+
+            if (this.HttpContext.Request.Headers.ContainsKey("X-Request-ID"))
+            {
+                var daprRequestId = this.HttpContext.Request.Headers["X-Request-ID"].FirstOrDefault();
+                logger.LogInformation("Request ID from Dapr: {DaprRequestId}", daprRequestId);
+            }
+
             var query = new GetEmployeeByEmpIdQuery(empId, department);
             ValueTask<Result<GetEmployeeByEmpIdResult>> queryResult = sender.Send(query, cancellationToken);
 
