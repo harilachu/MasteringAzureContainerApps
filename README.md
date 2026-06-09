@@ -93,19 +93,19 @@ dapr run --app-id review-app --app-port 5052  --dapr-http-port 3501 -- dotnet ru
 #### 1. Building Employee App Service
 
 ```azurepowershell
-az acr build --registry containerreg --file ./Microservices/Employees/ERP.Employees.API/DockerFile --image employeeappservice:v1.0 .
+az acr build --registry masteracareg --file ./Microservices/Employees/ERP.Employees.API/DockerFile --image employeeappservice:v1.0 .
 ```
 
 #### 2. Building Review App Service
 
 ```azurepowershell
-az acr build --registry containerreg --file ./Microservices/PerformanceReviews/ERP.PerfReview.API/DockerFile --image reviewappservice:v1.0 .
+az acr build --registry masteracareg --file ./Microservices/PerformanceReviews/ERP.PerfReview.API/DockerFile --image reviewappservice:v1.0 .
 ```
 
 #### 3. Building YARP Gateway Service
 
 ```azurepowershell
-az acr build --registry containerreg --file ./Microservices/YARP/YarpGatewayService/DockerFile --image yarpgatewayservice:v1.0 .
+az acr build --registry masteracareg --file ./Microservices/YARP/YarpGatewayService/DockerFile --image yarpgatewayservice:v1.0 .
 ```
 ---
 
@@ -114,18 +114,18 @@ az acr build --registry containerreg --file ./Microservices/YARP/YarpGatewayServ
 #### 1. Deploy Employee App Service
 
 ```azurepowershell
-az containerapp update --name employee-container-app --resource-group masteraca --image containerreg.azurecr.io/employeeappservice:v1.0
+az containerapp update --name employee-container-app --resource-group masteraca --image masteracareg.azurecr.io/employeeappservice:v1.0
 ```
 #### 2. Deploy Review App Service
 
 ```azurepowershell
-az containerapp update --name review-container-app --resource-group masteraca --image containerreg.azurecr.io/reviewappservice:v1.0
+az containerapp update --name review-container-app --resource-group masteraca --image masteracareg.azurecr.io/reviewappservice:v1.0
 ```
 
 #### 3. Deploy YARP Gateway Service
 
 ```azurepowershell
-az containerapp update --name yarp-container-app --resource-group masteraca --image containerreg.azurecr.io/yarpgatewayservice:v1.0
+az containerapp update --name yarp-container-app --resource-group masteraca --image masteracareg.azurecr.io/yarpgatewayservice:v1.0
 ```
 ---
 
