@@ -5,17 +5,17 @@
       {
         "Path": "Microservices\\Employees\\ERP.Employees.API\\ERP.Employees.API.csproj",
         "Action": "Start",
-        "DebugTarget": "http"
+        "DebugTarget": "Container (Dockerfile)"
       },
       {
         "Path": "Microservices\\PerformanceReviews\\ERP.PerfReview.API\\ERP.PerfReview.API.csproj",
         "Action": "Start",
-        "DebugTarget": "http"
+        "DebugTarget": "Container (Dockerfile)"
       },
       {
         "Path": "Microservices\\YARP\\YarpGatewayService\\YarpGatewayService.csproj",
         "Action": "Start",
-        "DebugTarget": "https"
+        "DebugTarget": "Container (Dockerfile)"
       }
     ]
   }
