@@ -48,7 +48,8 @@ namespace ERP.Employees.Infrastructure.ServiceDependencies
                     MaxRetryAttemptsOnRateLimitedRequests = 5,
                     MaxRetryWaitTimeOnRateLimitedRequests = TimeSpan.FromSeconds(10)
                 };
-                return new CosmosClient(appConfig.Cosmos.Endpoint, credential, options);
+                //Using Key based authentication for CosmosDB using Primary Connection string
+                return new CosmosClient(appConfig.Cosmos.Endpoint);//new CosmosClient(appConfig.Cosmos.Endpoint, credential, options); Use this only when MI is created and assigned to the CosmosDB service.
             }
         }
 
