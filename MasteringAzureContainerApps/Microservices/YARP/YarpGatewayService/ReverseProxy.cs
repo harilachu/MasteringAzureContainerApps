@@ -50,7 +50,24 @@ namespace YarpGatewayService
                                 { "PathRemovePrefix", "/api" }
                             }
                         }
-                    }
+                    },
+                    new RouteConfig
+                    {
+                        RouteId = "revisions-Route",
+                        ClusterId = "employee-Cluster",
+                        Match = new RouteMatch
+                        {
+                            Path = "/api/Revisions"
+                        },
+                        AuthorizationPolicy = "",
+                        Transforms = new []
+                        {
+                            new Dictionary<string, string>
+                            {
+                                { "PathRemovePrefix", "/api" }
+                            }
+                        }
+                    },
                 },
                 clusters: new[]
                 {
