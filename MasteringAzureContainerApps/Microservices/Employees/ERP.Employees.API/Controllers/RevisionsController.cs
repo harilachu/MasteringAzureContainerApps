@@ -12,7 +12,7 @@ namespace ERP.Employees.API.Controllers
         {
             return Ok(new
             {
-                CurrentRevision = "Revision A"
+                CurrentRevision = "Revision B"
             });
         }
     }
